@@ -1,5 +1,5 @@
-# IBM CAI Challenge 2018 - Node.js Starter Application
-This is the starter app based on Node.js and Express w/ Pug view engine.
+# IBM CAI Challenge 2018 - Java / Spring Boot Starter Application
+This is the starter app based on Java and Spring Boot. 
 
 ## Getting started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
@@ -12,34 +12,28 @@ These instructions will get you a copy of the project up and running on your loc
 * `app.js` is the Express configuration script which loads routes into the server
 
 ### Prerequisites
-You will need node.js and npm for this starter. Download it from https://nodejs.org/en/download/current/. 
+You will need Java and Maven for this project. TODO: How to download? 
 
 ### Running Locally
-From the node-starter directory in a terminal, run these commands. 
+From the java-starter directory in a terminal, run these commands. 
 ```
-cd node-starter # make sure you are in this directory
+cd java-starter # make sure you are in this directory
 ```
 
-Install dependencies
+Build & package
 ```
-npm install
+mvnw package
 ```
 Run the application
 ```
-npm start
+java -jar target/challenge-0.0.1-SNAPSHOT.jar
 ```
 You can access the application in your browser at
 ```
-localhost:3000
+localhost:8080
 ```
 
 Typically you should develop a bit of code locally, test it, and then push it to the cloud, and repeat. 
-
-### Integrated Development Environment
-While the above commands will run the application for you locally, you really should use tools to be more productive. For node, you can use VS Code. Download and install VS Code and the Nodejs Development pack from https://marketplace.visualstudio.com/items?itemName=nodesource.vscode-for-node-js-development-pack.
-
-Feel free to use other tools if you prefer them.
-
 
 ## Deploying to IBM Cloud
 Deployments to IBM Cloud are defined by the manifest.yml file. You can modify it if you want but it will work out of the box. See https://docs.cloudfoundry.org/devguide/deploy-apps/manifest.html.

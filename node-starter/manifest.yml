@@ -5,5 +5,4 @@
       instances: 1
       command: npm start
       random-route: true
-      buildpacks: 
-        - sdk-for-nodejs
+      buildpack: sdk-for-nodejs
