@@ -1,5 +1,5 @@
 # IBM CAI Challenge 2018 - Database Migration Starter
-This is the starter app to help you manage your Postgres database migrations using Flyway.
+This is the starter app to help you manage your Postgres database migrations using Flyway and manual database access with pgAdmin.
 
 Database migrations are the series of scripts that create, modify, delete, and otherwise affect objects in your database.
 
@@ -13,7 +13,8 @@ These instructions will get you a copy of the project up and running on your loc
 * `sql` contains the sql-based database migration scripts. The convention is that they are versioned such that V1_5_name_of_the_script.sql would be Version 1.5. Flyway parses these filenames very strictly. 
 
 ### Prerequisites
-You will need Flyway for this starter. Download it from https://flywaydb.org/. 
+* You will need Flyway CLI: https://flywaydb.org/
+* You will need pgAdmin: https://www.pgadmin.org/download/
 
 ### Creating a database
 First, you need to create a database for your application. 
@@ -88,7 +89,7 @@ Get your database host name, port number, database name, username, and password 
 ibmcloud cf env cai-challenge
 ```
 
-Edit flyway.conf and replace these variables with your actual values from the previous step. `flyway.conf` now has your secret password in it - make sure you don't check that into GitHub!
+Edit `flyway.conf` and replace these variables with your actual values from the previous step. `flyway.conf` now has your secret password in it - don't check that into GitHub!
 ```
 flyway.url=jdbc:postgresql://$HOSTNAME:$PORT/$DBNAME?sslmode=require
 flyway.user=$USERNAME
@@ -102,78 +103,77 @@ Change directory to the database folder. This is where flyway commands should be
 cd database
 ```
 
-Let flyway report its status.
+Check migration status
 ```
 flyway info
 ```
 
-You should see something like
+If flyway can connect to your database you should see something very similar to this:
+```
+Benjamins-MacBook-Pro:database ben.stokes@us.ibm.com$ flyway info
+Flyway Community Edition 5.1.4 by Boxfuse
 
+Database: jdbc:postgresql://582a69d8-23f6-42c3-ad11-d0b140eb4dd2.8f7bfd8f3faa4218aec56e069eb46187.databases.appdomain.cloud:31434/ibmclouddb (PostgreSQL 10.5)
+Schema version: << Empty Schema >>
 
-
-
-
-```
-From the node-starter directory in a terminal, run these commands. 
-```
-cd node-starter # make sure you are in this directory
-```
-
-Install dependencies
-```
-npm install
-```
-Run the application
-```
-npm start
-```
-You can access the application in your browser at
-```
-localhost:3000
++-----------+---------+--------------------------+------+--------------+---------+
+| Category  | Version | Description              | Type | Installed On | State   |
++-----------+---------+--------------------------+------+--------------+---------+
+| Versioned | 2.0     | create cai schema        | SQL  |              | Pending |
+| Versioned | 2.1     | create hello world table | SQL  |              | Pending |
+| Versioned | 2.2     | hydrate test data        | SQL  |              | Pending |
++-----------+---------+--------------------------+------+--------------+---------+
 ```
 
-Typically you should develop a bit of code locally, test it, and then push it to the cloud, and repeat. 
-
-### Integrated Development Environment
-While the above commands will run the application for you locally, you really should use tools to be more productive. For node, you can use VS Code. Download and install VS Code and the Nodejs Development pack from https://marketplace.visualstudio.com/items?itemName=nodesource.vscode-for-node-js-development-pack.
-
-Feel free to use other tools if you prefer them.
-
-
-## Deploying to IBM Cloud
-Deployments to IBM Cloud are defined by the manifest.yml file. You can modify it if you want but it will work out of the box. See https://docs.cloudfoundry.org/devguide/deploy-apps/manifest.html.
-
-First, make sure you're logged in to the CLI.
+Now its time to run your database migrations.
 ```
-ibmcloud login -a https://api.ng.bluemix.net
-```
-The ibmcloud CLI needs to be properly targeted.
-```
-ibmcloud target --cf
-ibmcloud target -g cai-challenge
-```
-Change the `node-starter` directory if you're not already there.
-```
-cd node-starter
-```
-Deploy your application. Use this same command to redeploy whenever you want. This command reads the `manifest.yml` file from the current directory to make the deployment. 
-```
-ibmcloud cf push
+flyway migrate
 ```
 
-The manifest creates a random route for you which will be shown in your terminal. YOu can access your app running in the cloud at that route. 
+Run `flyway info` again and you will see the migrations have been installed.
+```
++-----------+---------+------------------------------+--------+---------------------+---------+
+| Category  | Version | Description                  | Type   | Installed On        | State   |
++-----------+---------+------------------------------+--------+---------------------+---------+
+|           |         | << Flyway Schema Creation >> | SCHEMA | 2018-10-12 19:03:46 | Success |
+| Versioned | 2.0     | create cai schema            | SQL    | 2018-10-12 19:03:47 | Success |
+| Versioned | 2.1     | create hello world table     | SQL    | 2018-10-12 19:03:47 | Success |
+| Versioned | 2.2     | hydrate test data            | SQL    | 2018-10-12 19:03:48 | Success |
++-----------+---------+------------------------------+--------+---------------------+---------+
+```
 
-View your app status
+Flyway can also clean your schema. Clean means *delete everything.* Go ahead and try it. Don't worry, we'll install it again very quickly.
 ```
-ibmcloud cf apps
-```
-
-View your recent logs
-```
-ibmcloud cf logs cai-challenge --recent
+flyway clean
 ```
 
-Tail your logs (shows additional log messages as they occur)
+`flyway info` will now show you that the migrations are pending again. Lets reinstall the database.
 ```
-ibmcloud cf logs cai-challenge
+flyway migrate
+```
+
+Flyway's database migrations are designed for this and it is helpful to clean and recreate in a development environment. You should be mindful that, if you make changes outside of flyway, then run `flyway clean` then you will lose those changes! Be careful!
+
+### Using pgAdmin
+pgAdmin is a graphical database management tool for Postgres. 
+
+To get started, get your database host name, port number, database name, username, and password from the VCAP_SERVICES environment variable. You'll use these in the next step.
+```
+ibmcloud cf env cai-challenge
+```
+
+Launch pgAdmin and create a new server. Enter your connection information into the corresponding fields and connect.
+
+1. Browse to the `ibmclouddb.schemas.cai.tables` tree. 
+2. Right click Tables and enter some information into the creation dialog. 
+3. Click on the SQL tab and you will see that pgAdmin will generate the SQL for you based on your inputs to the GUI. 
+
+It can be very helpful to use the GUI to create these scripts and then add them as flyway migrations and let flyway actually run the scripts for you. Remember, anything you create outside of flyway will be deleted if you run `flway clean`!
+
+#### Query Tool
+pgAdmin has a query tool that is very helpful. Open a query tool tab from the Tools menu. 
+
+Enter a query like this, select the text, and click the lightening bolt toolbar button.
+```
+select * from flyway_schema_history;
 ```
