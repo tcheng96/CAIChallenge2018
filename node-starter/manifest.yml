@@ -1,0 +1,9 @@
+---
+  applications:
+    - name: cai-challenge
+      memory: 512M
+      instances: 1
+      command: npm start
+      random-route: true
+      buildpacks: 
+        - sdk-for-nodejs
