@@ -21,7 +21,7 @@ cd java-starter # make sure you are in this directory
 
 Build & package
 ```
-mvnw package
+./mvnw package
 ```
 Run the application
 ```
@@ -33,6 +33,11 @@ localhost:8080
 ```
 
 Typically you should develop a bit of code locally, test it, and then push it to the cloud, and repeat. 
+
+### Integrated Development Environment
+While the above commands will run the application for you locally, you really should use tools to be more productive. For Spring, you can use Spring Tool Suite with Eclipse, Atom, or VS Code, whichever you prefer. Download and install STS from https://spring.io/tools.
+
+Feel free to use other tools if you prefer them.
 
 ## Deploying to IBM Cloud
 Deployments to IBM Cloud are defined by the manifest.yml file. You can modify it if you want but it will work out of the box. See https://docs.cloudfoundry.org/devguide/deploy-apps/manifest.html.
