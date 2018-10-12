@@ -147,7 +147,7 @@ Flyway can also clean your schema. Clean means *delete everything.* Go ahead and
 flyway clean
 ```
 
-`flyway info` will now show you that the migrations are pending again. Lets reinstall the database.
+`flyway info` will now show you that the migrations are pending again. Check it and then reinstall the database.
 ```
 flyway migrate
 ```
