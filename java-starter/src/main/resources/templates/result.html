@@ -5,9 +5,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-	<h1>Result</h1>
-    <p th:text="'Drone ID: ' + ${user.id}" />
+	<h1>Success!</h1>
     <p th:text="'First Name: ' + ${user.firstname}" />
+    <p th:text="'Last Name: ' + ${user.lastname}" />
+    <p th:text="'Address: ' + ${user.address}" />
+    <p th:text="'Drone ID: ' + ${user.id}" />
     <a href="/user">Submit another message</a>
 </body>
 </html>
