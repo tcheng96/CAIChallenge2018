@@ -40,3 +40,32 @@ ibmcloud account user-invite $EMAIL -o "CAI Challenge" -s $EMAIL --space-role Sp
 
 ### Add to access group
 As people accept their invites they will show up in the account. Once they're in the account you can add them to the access group you created and they'll start to inherit the IAM policies you defined. 
+
+### Monitoring
+These commands may be useful to monitor activity during your event.
+See all users
+```
+ibmcloud account users
+```
+See what service instances have been created
+```
+ibmcloud resource service-instances
+```
+Inspect a single service instance
+```
+ibmcloud resource service-instance $INSTANCE_NAME
+```
+Look at routes so you can check out WIP. Absence of a route could prompt a check in to see if they're stuck
+```
+ibmcloud app routes --orglevel
+```
+View all services
+```
+ibmcloud service list
+```
+Keep tabs on your $
+```
+ibmcloud billing org-usage "CAI Challenge"
+ibmcloud billing resource-instances-usage
+ibmcloud billing resource-group-usage cai-challenge
+```
