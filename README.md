@@ -11,6 +11,8 @@ Using the IBM Cloud platform, build an application that meets all the requiremen
 
 The requirements, in the form of Agile User Stories, are available online as GitHub Issues on this repository. https://github.com/CAIChallenge2018/CAIChallenge2018/issues
 
+Focus on getting the requirements met. Like the Agile Manifesto says - we value working software. Feel free to start refining things after you finish all the stories (and share with us what you did and why). 
+
 ## Getting Started
 
 Your fictious team lead has assigned you the task of working through as many of the user stories as you can during the Challenge time. Your team lead has also created starter pack projects for you so that you don't have to start from scratch. There are three starter packs available - two for the application (Java/Spring Boot and Node.js/Express) and one for the database. You may choose to use them or not, it is up to you. If you want to use other tech stacks you can. The starters have readmes available for you to review.
