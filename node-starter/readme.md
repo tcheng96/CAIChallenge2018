@@ -62,7 +62,14 @@ Deploy your application. Use this same command to redeploy whenever you want. Th
 ibmcloud cf push
 ```
 
-The manifest creates a random route for you which will be shown in your terminal. YOu can access your app running in the cloud at that route. 
+If you get an error message like this:
+```
+The host is taken: cai-challenge-brash-bat
+FAILED
+```
+Try running `cf push` again to get a new random route.
+
+The manifest creates a random route for you which will be shown in your terminal. You can access your app running in the cloud at that route. 
 
 View your app status
 ```
