@@ -20,7 +20,11 @@ Your fictious team lead has assigned you the task of working through as many of 
 The only constraint is if you run a database in IBM Cloud it must be Postgres because that is what your team lead left instructions for :)
 
 ### IBM Cloud Account
-You should have received an invite within the last 24 hours to join the IBM Cloud account we're using for the challenge. You need that account to run through any of the IBM Cloud command line tools to deploy your application and provision your database. If you don't have that ask for help. 
+You should have received an invite within the last 24 hours to join the IBM Cloud account we're using for the challenge. You need that account to run through any of the IBM Cloud command line tools to deploy your application and provision your database. 
+
+If you don't have that, first log in to the console (https://console.bluemix.net) and see if you have access. If you already created a IBM Cloud account under your email then you will *not* get an e-mail invitation, so you might already have access. 
+
+If you still don't have the account or access, ask for help. 
 
 ### IBM Cloud CLI
 The IBM Cloud CLI tools are required. Get them from https://console.bluemix.net/docs/cli/index.html#overview
