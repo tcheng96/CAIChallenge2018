@@ -11,7 +11,7 @@ These instructions will get you a copy of the project up and running on your loc
 * `src/main/java/ibm.cai.challenge/ChallengeApplication` is the main entry point to the application. 
 
 ### Prerequisites
-You will need Java and Maven for this project. TODO: How to download? 
+You will need Java and Maven for this project. 
 
 ### Running Locally
 From the java-starter directory in a terminal, run these commands. 
