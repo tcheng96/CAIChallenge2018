@@ -7,6 +7,8 @@ This is a work in progress!
 ### Prerequisites
 You need to obtain an IBM Cloud account that you have control over, and it needs to have a credit card linked to it to unlock the full power/quota. As of October 2018 paygo accounts get $200 of free credit which should let you stay on the free tier for most challenge events of reasonable size and not blockchain related (or other expensive services).
 
+Its helpful to have a file listing all your attendees email addresses (you could loop over it for some commands below). 
+
 ### Cloud Foundry
 Cloud Foundry (part of IBM Cloud) is *very* suitable for challenge events because it is so developer friendly. Use other runtimes with caution.
 
