@@ -62,7 +62,7 @@ Verify your database is available in cloud foundry
 ibmcloud cf services
 ```
 
-Bind your database service to your application. This creates credentials and connection information for you to use. 
+Bind your database service to your application. This creates credentials and connection information for you to use. This command will fail if you did not create your application yet (you hopefully should have been doing that while you waited for the database to be provisioned).
 ```
 ibmcloud cf bind-service cai-challenge *YOUR_DATABASE_NAME*
 ```
@@ -72,7 +72,7 @@ You'll need to restage (aka restart) your application to pick up the new databas
 ibmcloud cf restage cai-challenge
 ```
 
-Find out your app's database connection information. It is stored in the VCAP_SERVICES environment variable for your app. 
+Find out your app's database connection information. It is stored in the `VCAP_SERVICES` environment variable for your app. 
 ```
 ibmcloud cf env cai-challenge
 ```
@@ -157,7 +157,7 @@ Flyway's database migrations are designed for this and it is helpful to clean an
 ### Using pgAdmin
 pgAdmin is a graphical database management tool for Postgres. 
 
-To get started, get your database host name, port number, database name, username, and password from the VCAP_SERVICES environment variable. You'll use these in the next step.
+To get started, get your database host name, port number, database name, username, and password from the VCAP_SERVICES environment variable. You'll use these in the next step. You can also pull them from your `flyway.conf` file - its the same thing. 
 ```
 ibmcloud cf env cai-challenge
 ```
@@ -165,7 +165,7 @@ ibmcloud cf env cai-challenge
 Launch pgAdmin and create a new server. Enter your connection information into the corresponding fields and connect.
 
 1. Browse to the `ibmclouddb.schemas.cai.tables` tree. 
-2. Right click Tables and enter some information into the creation dialog. 
+2. Right click Tables and enter some information into the creation dialog (like table name, add a column, etc).
 3. Click on the SQL tab and you will see that pgAdmin will generate the SQL for you based on your inputs to the GUI. 
 
 It can be very helpful to use the GUI to create these scripts and then add them as flyway migrations and let flyway actually run the scripts for you. Remember, anything you create outside of flyway will be deleted if you run `flway clean`!
@@ -175,5 +175,5 @@ pgAdmin has a query tool that is very helpful. Open a query tool tab from the To
 
 Enter a query like this, select the text, and click the lightening bolt toolbar button.
 ```
-select * from flyway_schema_history;
+select * from cai.flyway_schema_history;
 ```
